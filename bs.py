@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 def test():
-    url = 'Unigine_Heaven_Benchmark_4.0_20220803_1402.html'
+    url = 'data/Unigine_Heaven_Benchmark_4.0_20220803_1402.html'
     doc = open(url, 'r', encoding='utf-8').read()
     soup = BeautifulSoup(doc, "html.parser")
     # print("allText:",soup.findAll("table"))
