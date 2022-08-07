@@ -35,7 +35,7 @@ def parse_xml(xml):
     return data
 
 def save_excel(file,datas):
-    if is_used(file):
+    if is_used(file) & os.path.exists(file):
         prefix,suffix = os.path.splitext(file)
         file = prefix + "_occupied" + suffix
         print("the file is occupied!!!")
