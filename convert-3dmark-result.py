@@ -63,4 +63,4 @@ if __name__ == '__main__':
     usage()
     input=sys.argv[1]
     xml=get_xml(input)
-    save_excel(os.path.join("data","ret.xlsx"), parse_xml(xml))
+    save_excel(os.path.join("data","3dmark_result.xlsx"), parse_xml(xml))

@@ -5,4 +5,4 @@ pip install beautifulsoup4
 pip install requests
 
 # convert-3dmark-result.py
-convert-3dmark-result.py .\3DMark-FireStrikeCustom-0-20220804163804.3dmark-result
+convert-3dmark-result.py .\data\3DMark-FireStrikeCustom-0-20220804163804.3dmark-result
