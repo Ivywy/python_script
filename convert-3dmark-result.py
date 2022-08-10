@@ -1,3 +1,4 @@
+import time
 import zipfile
 import os.path
 import sys
@@ -6,6 +7,9 @@ import shutil
 from xml.etree import ElementTree 
 import pandas
 import win32file as pywin32
+
+from util.common import get_time
+
 
 def get_xml(filename):
     if os.path.isfile(filename):
@@ -43,8 +47,8 @@ def save_excel(file,datas):
     value=list(datas.values())
     p = pandas.DataFrame()
     p.fillna(' ', inplace=True)
-    p["名称"]=key
-    p["结果"]=value
+    p["item"]=key
+    p["result"]=value
     p.to_excel(file,encoding = 'utf-8',index = False)
 
 def is_used(file_name):
@@ -63,4 +67,6 @@ if __name__ == '__main__':
     usage()
     input=sys.argv[1]
     xml=get_xml(input)
-    save_excel(os.path.join("data","3dmark_result.xlsx"), parse_xml(xml))
+    print(get_time())
+    excel_file="3dmark_result-"+get_time()+".xlsx"
+    save_excel(os.path.join("data",excel_file), parse_xml(xml))

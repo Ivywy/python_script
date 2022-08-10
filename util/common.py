@@ -1,4 +1,7 @@
 import os
+import time
+
+
 def mk_dir(path):
     folder = os.path.exists(path)
     if not folder:
@@ -7,12 +10,6 @@ def mk_dir(path):
     else:
         print ("---  There is this folder!  --")
 
-def mk_file(pah_file):
-    (path,file)=os.path.split(pah_file)
-    print(path)
-    print("==========")
-    print(file)
-    is_file=os.path.isfile(file)
-    if not is_file:
-        open(file,"wa+")
-    os.chmod(file, stat.S_IWOTH|stat.S_IROTH)
+def get_time():
+    return time.strftime('%Y%m%d%H%M%S', time.localtime())
+
