@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def excel_to_chart(path_file):
     df = pd.read_excel(path_file)
-    ind=df.columns.tolist()
+    ind=df.columns.tolist() #获取表头
 
     for i in range(1, len(ind)):
         plt.plot(df[ind[0]], df[ind[i]], label=ind[i])
