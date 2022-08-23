@@ -1,0 +1,26 @@
+<benchmark>
+  <results>
+    <result>
+      <_3dmarkscore>0</_3dmarkscore>
+      <graphicsscore>9528</graphicsscore>
+      <physicsscore>13766</physicsscore>
+      <combinedscore>10949</combinedscore>
+      <combinedtest_fps>50.92633</combinedtest_fps>
+      <demo_fps>0.00000</demo_fps>
+      <graphicstest1_fps>40.07143</graphicstest1_fps>
+      <graphicstest2_fps>41.57143</graphicstest2_fps>
+      <graphicstest3_fps>64.03800</graphicstest3_fps>
+      <graphicstest4_fps>31.32375</graphicstest4_fps>
+      <physicstest_fps>43.70432</physicstest_fps>
+      <system_cpu>
+      </system_cpu>
+      <system_gpu>
+      </system_gpu>
+      <system_os>
+      </system_os>
+      <system_memory>
+      </system_memory>
+    </result>
+    <result />
+  </results>
+</benchmark>
