@@ -61,6 +61,7 @@ def read_xml(file_path,app,item):
             data[app] = element.text
             break
     return data
+
 def write_head(fileName,sheetName,row_head,column_head):
     workbook = xlwt.Workbook()
     worksheet = workbook.add_sheet(sheetName,cell_overwrite_ok=True)
@@ -97,19 +98,65 @@ def get_position(fileName,sheet_name,row_name,col_name):
     return row,col
 
 def write2excel(fileName,sheetName,data):
+    #TODO 校验filename是否为xls后缀
+    if not fileName.endswith(".xls"):
+        raise Exception(IOError)
+    # 检查xls文件是否存在，如果不存在，就新建
+    if not os.path.exists(fileName):
+        row_head=["AC + HG","DC + HG","AC + NoHG","DC + NoHG"]
+        column_head=["TimeSpy","Furmark","Heaven11","FireStrike"]
+        write_head(fileName,sheetName,row_head,column_head)
+
+
+    #TODO 检查传入的sheetName在表格中是否存在，如果不存在就新建一个工作簿
     wb = xlrd.open_workbook(fileName,formatting_info=True)
-    sheetnames =wb.sheet_names()
-    # print(sheetnames.index(sheetName))
+    sheetnames = wb.sheet_names()
+    if sheetName not in sheetnames:
+        raise Exception("%s Not Found"%sheetName)
+
+    #TODO data[0] 必须是列中元素 data[1]必须是行中元素 否则报错
+
     workbook = copy(wb=wb)
-    worksheet=workbook.get_sheet(sheetnames.index(sheetName))
-    for x in sorted(data.keys()):
-        for y in sorted(data[x].keys()):
-            pos=list(get_position(fileName,sheetName,x,y))
-            print(pos)
-            # print(data[x][y])
-            worksheet.write(pos[0],pos[1],data[x][y])
+    worksheet = workbook.get_sheet(sheetnames.index(sheetName))
+
+    # TODO 检查data是不是一个列表
+    if not isinstance(data,list):
+        raise Exception("data is not a list")
+    
+    # 检查data[2]是否是int或float型
+    if not isinstance(data[2],int) and not isinstance(data[2],float):
+        raise Exception("the value must be int or float")
+
+    pos=list(get_position(fileName,sheetName,data[0],data[1]))
+    worksheet.write(pos[0],pos[1],data[2])
+    # for x in sorted(data.keys()):
+    #     for y in sorted(data[x].keys()):
+    #         pos=list(get_position(fileName,sheetName,x,y))
+    #         print(pos)
+    #         # print(data[x][y])
+    #         worksheet.write(pos[0],pos[1],data[x][y])
     workbook.save(fileName)
 
+
+def unit_test_filename():
+    try:
+        write2excel("text1.txt","sheet1",["AC + HG",'Heaven11',1999.99])
+    except Exception:
+        return
+
+def unit_test_sheet():
+    try:
+        write2excel("text1.xls","sheet2",["AC + HG",'Heaven11',1999.99])
+    except Exception:
+        return
+
+def unit_test_data(): 
+    try:
+        write2excel("text1.xls","sheet1",["AC + HG",'Heaven11',1999.99])
+        write2excel("text1.xls","sheet1",["AC + HG1",'Heaven11',1999.99])
+        write2excel("text1.xls","sheet1",["AC + HG",'Heaven111',"1999.99"])
+    except Exception:
+        return
 
 if __name__ == "__main__":
 
@@ -120,8 +167,8 @@ if __name__ == "__main__":
     # print(read_txt(furmark_path,"Furmark"))
     #
     # 读取heaven11的score
-    heaven_path=os.path.join(data_path,"heaven11_log.html")
-    print(read_html(heaven_path,"Heaven11"))
+    # heaven_path=os.path.join(data_path,"heaven11_log.html")
+    # print(read_html(heaven_path,"Heaven11"))
     #
     # # 读取Firestrike的数据
     # firestrike_path=os.path.join(data_path,"Result-Firestrike.xml")
@@ -143,8 +190,11 @@ if __name__ == "__main__":
     # print(find_row_position("text.xls","sheet1","AC + HG","TimeSpy"))
 
     # data={"AC + HG":{"TimeSpy":1986,"Furmark":505,"Heaven11":1365.35,"FireStrike":3859},"DC + HG":{"TimeSpy":1987,"Furmark":506,"Heaven11":1366.36,"FireStrike":3860},"AC + NoHG":{"TimeSpy":1988,"Furmark":507,"Heaven11":1366.37,"FireStrike":3861},"DC + NoHG":{"TimeSpy":1989,"Furmark":508,"Heaven11":1369.39,"FireStrike":3862}}
-    data={"AC + HG":{'Heaven11': 1999.99}}
-    write2excel("text.xls","sheet1",data)
+    # data={"AC + HG":{'Heaven11': 1999.99}}
+
+    unit_test_data()
+    unit_test_filename()
+    unit_test_sheet()
 
 
 
