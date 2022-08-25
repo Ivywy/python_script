@@ -108,7 +108,7 @@ def write2excel(fileName,sheetName,data):
         write_head(fileName,sheetName,row_head,column_head)
 
 
-    #TODO 检查传入的sheetName在表格中是否存在，如果不存在就新建一个工作簿
+    #TODO 检查传入的sheetName在表格中是否存在，如果不存在就新建一个工作表
     wb = xlrd.open_workbook(fileName,formatting_info=True)
     sheetnames = wb.sheet_names()
     if sheetName not in sheetnames:

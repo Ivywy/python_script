@@ -19,7 +19,7 @@ def csv_excel(csv_path,excel_path,columns):
     file = pd.read_csv(csv_path)
     datas=file[columns]
     print("++++++++++++++")
-    # print(datas)
+    # print(datas) gvg
     # 求最大值和平均值并写入excel
     max_lis=list()
     max_lis.append("Max")
