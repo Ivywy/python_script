@@ -80,7 +80,7 @@ def write_excel_head(path, sheet_name, row_head):
 
 def write_excel_xls_append(path, sheet_name,value):
     index = len(value)  # 获取需要写入数据的行数
-    workbook = xlrd.open_workbook(path)  # 打开工作簿
+    workbook = xlrd.open_workbook(path,formatting_info=True)  # 打开工作簿
     sheets = workbook.sheet_names()  # 获取工作簿中的所有表格
     worksheet = workbook.sheet_by_name(sheet_name)
     rows_old = worksheet.nrows  # 获取表格中已存在的数据的行数
@@ -91,7 +91,8 @@ def write_excel_xls_append(path, sheet_name,value):
             if j==0:
                 style=xlwt.easyxf('font: bold on')
                 new_worksheet.write(i + rows_old, j, value[i][j],style)
-            new_worksheet.write(i + rows_old, j, value[i][j])  # 追加写入数据，注意是从i+rows_old行开始写入
+            else:
+                new_worksheet.write(i + rows_old, j, value[i][j])
     new_workbook.save(path)  # 保存工作簿
 
 if __name__ == '__main__':
